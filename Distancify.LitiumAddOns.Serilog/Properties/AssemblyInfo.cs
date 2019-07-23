@@ -6,11 +6,11 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("Distancify.LitiumAddOns.Serilog")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Provides an ILog implementation for Serilog with some additional trimming of Litium logging")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("Distancify AB")]
 [assembly: AssemblyProduct("Distancify.LitiumAddOns.Serilog")]
-[assembly: AssemblyCopyright("Copyright ©  2019")]
+[assembly: AssemblyCopyright("Copyright © Distancify AB 2019")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
