@@ -1,11 +1,19 @@
 ﻿using Litium.Owin.Logging;
 using Serilog;
 using System;
+using System.Collections.Generic;
 
 namespace Distancify.LitiumAddOns.Serilog
 {
     public class SerilogLogger : LoggerBase, ILog
     {
+        private static ISet<string> VerboseSources = new HashSet<string>
+        {
+            "System.Web.Http.Tracing.ITraceWriter",
+            "Microsoft.EntityFrameworkCore.Database.Command",
+            "Microsoft.EntityFrameworkCore.Infrastructure"
+        };
+
         public override bool IsFatalEnabled => global::Serilog.Log.Logger.IsEnabled(global::Serilog.Events.LogEventLevel.Fatal);
 
         public override bool IsErrorEnabled => global::Serilog.Log.Logger.IsEnabled(global::Serilog.Events.LogEventLevel.Error);
@@ -91,7 +99,7 @@ namespace Distancify.LitiumAddOns.Serilog
 
         private Level PostProcessLevel(Level level, string title, string message)
         {
-            if (title.Equals("System.Web.Http.Tracing.ITraceWriter", StringComparison.Ordinal))
+            if (VerboseSources.Contains(title))
                 return Level.Trace;
 
             if (message.Contains("A potentially dangerous Request.Path value was detected from the client"))
