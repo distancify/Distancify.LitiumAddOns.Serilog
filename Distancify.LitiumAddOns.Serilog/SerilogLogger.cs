@@ -74,6 +74,8 @@ namespace Distancify.LitiumAddOns.Serilog
                 return;
             }
 
+            level = PostProcessLevel(level, title, message);
+
             switch (level)
             {
                 case Level.Trace:
