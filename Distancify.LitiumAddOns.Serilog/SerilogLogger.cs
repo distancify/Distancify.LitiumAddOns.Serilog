@@ -7,11 +7,12 @@ namespace Distancify.LitiumAddOns.Serilog
 {
     public class SerilogLogger : LoggerBase, ILog
     {
-        private static ISet<string> VerboseSources = new HashSet<string>
+        private static readonly ISet<string> VerboseSources = new HashSet<string>
         {
             "System.Web.Http.Tracing.ITraceWriter",
             "Microsoft.EntityFrameworkCore.Database.Command",
-            "Microsoft.EntityFrameworkCore.Infrastructure"
+            "Microsoft.EntityFrameworkCore.Infrastructure",
+            "Litium.Web.Media.Storage.StorageRequestContext"
         };
 
         public override bool IsFatalEnabled => global::Serilog.Log.Logger.IsEnabled(global::Serilog.Events.LogEventLevel.Fatal);
@@ -105,9 +106,6 @@ namespace Distancify.LitiumAddOns.Serilog
                 return Level.Trace;
 
             if (message.Contains("A potentially dangerous Request.Path value was detected from the client"))
-                return Level.Warn;
-
-            if ("Litium.Studio.Storage.StorageHandler".Equals(title) && message.Contains("An error occurred while communicating with the remote host"))
                 return Level.Warn;
 
             return level;
