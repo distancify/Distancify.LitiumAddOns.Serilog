@@ -10,8 +10,15 @@ namespace Distancify.LitiumAddOns.Serilog
         private static readonly ISet<string> VerboseSources = new HashSet<string>
         {
             "System.Web.Http.Tracing.ITraceWriter",
+            "Microsoft.EntityFrameworkCore.ChangeTracking",
             "Microsoft.EntityFrameworkCore.Database.Command",
+            "Microsoft.EntityFrameworkCore.Database.Connection",
+            "Microsoft.EntityFrameworkCore.Database.Transaction",
             "Microsoft.EntityFrameworkCore.Infrastructure",
+            "Microsoft.EntityFrameworkCore.Model",
+            "Microsoft.EntityFrameworkCore.Model.Validation",
+            "Microsoft.EntityFrameworkCore.Query",
+            "Microsoft.EntityFrameworkCore.Update",
             "Litium.Web.Media.Storage.StorageRequestContext"
         };
 
