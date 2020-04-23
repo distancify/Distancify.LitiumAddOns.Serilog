@@ -45,7 +45,7 @@ namespace Distancify.LitiumAddOns.Serilog
         {
             var renderedMessage = message();
 
-            if (renderedMessage.Contains("FromLitium"))
+            if (DoNotLog(level, title, renderedMessage, exception))
             {
                 return;
             }
@@ -77,7 +77,7 @@ namespace Distancify.LitiumAddOns.Serilog
 
         protected override void Log(Level level, string title, string message, params object[] formatting)
         {
-            if (message.Contains("FromLitium"))
+            if (DoNotLog(level, title, message))
             {
                 return;
             }
@@ -105,6 +105,24 @@ namespace Distancify.LitiumAddOns.Serilog
                     For(title).Fatal(message, formatting);
                     break;
             }
+        }
+
+        private bool DoNotLog(Level level, string title, string message, Exception exception = null)
+        {
+            if (message.Contains("FromLitium"))
+            {
+                return true;
+            }
+
+            if (title.StartsWith("Microsoft.EntityFrameworkCore") &&
+                exception is null && 
+                !(level.Equals(Level.Fatal) || level.Equals(Level.Error))
+            )
+            {
+                return true;
+            }
+
+            return false;
         }
 
         private Level PostProcessLevel(Level level, string title, string message)
