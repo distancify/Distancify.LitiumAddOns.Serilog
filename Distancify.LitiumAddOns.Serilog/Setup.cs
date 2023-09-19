@@ -8,7 +8,13 @@ namespace Distancify.LitiumAddOns.Serilog
     {
         public void PreSetup(IEnumerable<Assembly> assemblies)
         {
-            Litium.Owin.Logging.Log.InitializeWith<SerilogLogger>();
+            Litium.Owin.Logging.Log.Factory = (name) =>
+            {
+                var logger = new SerilogLogger();
+                logger.InitializeFor(name);
+
+                return logger;
+            };
         }
     }
 }

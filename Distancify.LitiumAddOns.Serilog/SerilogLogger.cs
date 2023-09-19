@@ -75,9 +75,9 @@ namespace Distancify.LitiumAddOns.Serilog
             }
         }
 
-        protected override void Log(Level level, string title, string message, params object[] formatting)
+        protected override void Log(Exception exception, Level level, string title, string message, params object[] formatting)
         {
-            if (DoNotLog(level, title, message))
+            if (DoNotLog(level, title, message, exception))
             {
                 return;
             }
@@ -87,22 +87,22 @@ namespace Distancify.LitiumAddOns.Serilog
             switch (level)
             {
                 case Level.Trace:
-                    For(title).Verbose(message, formatting);
+                    For(title).Verbose(exception, message, formatting);
                     break;
                 case Level.Debug:
-                    For(title).Debug(message, formatting);
+                    For(title).Debug(exception, message, formatting);
                     break;
                 case Level.Info:
-                    For(title).Information(message, formatting);
+                    For(title).Information(exception, message, formatting);
                     break;
                 case Level.Warn:
-                    For(title).Warning(message, formatting);
+                    For(title).Warning(exception, message, formatting);
                     break;
                 case Level.Error:
-                    For(title).Error(message, formatting);
+                    For(title).Error(exception, message, formatting);
                     break;
                 case Level.Fatal:
-                    For(title).Fatal(message, formatting);
+                    For(title).Fatal(exception, message, formatting);
                     break;
             }
         }
